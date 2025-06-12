@@ -29,3 +29,9 @@ image2 = cv2.imread("image2.jpg")
 ssim, mad = compare_images(image1, image2)
 print("Structural Similarity: ", ssim)
 print("Mean Absolute Difference: ", mad)
+
+
+def compare_images_by_size(image1, image2):
+    return abs(image1.shape[0] - image2.shape[0]) + abs(
+        image1.shape[1] - image2.shape[1]
+    )
