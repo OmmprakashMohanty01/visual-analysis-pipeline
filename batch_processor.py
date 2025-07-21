@@ -12,3 +12,12 @@ def image_files(directory):
             (".png", ".jpg", ".jpeg", ".gif", ".bmp")
         ):
             yield filepath
+
+
+def video_files(directory):
+    for filename in os.listdir(directory):
+        filepath = os.path.join(directory, filename)
+        if os.path.isfile(filepath) and filename.lower().endswith(
+            (".mp4", ".mov", ".avi", ".mkv", ".webm")
+        ):
+            yield filepath
