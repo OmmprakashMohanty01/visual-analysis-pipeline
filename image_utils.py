@@ -48,3 +48,26 @@ def process_image_array(
         cv2.imwrite("processed_image.jpg", image)
     else:
         return image
+
+
+def process_image_batch(
+    image_batch, size=None, crop=False, normalize=False, save=True, output_dir="."
+):
+    import numpy as np
+
+    if not isinstance(image_batch, (list, tuple)):
+        raise ValueError("Image batch must be a list or tuple of image arrays.")
+
+    processed_batch = []
+    for image_array in image_batch:
+        processed_image = process_image_array(
+            image_array, size, crop, normalize=normalize
+        )
+        if save:
+            cv2.imwrite(
+                os.path.join(output_dir, f"processed_image_{len(processed_batch)}.jpg"),
+                processed_image,
+            )
+        processed_batch.append(processed_image)
+
+    return np.stack(processed_batch)
