@@ -21,3 +21,12 @@ def video_files(directory):
             (".mp4", ".mov", ".avi", ".mkv", ".webm")
         ):
             yield filepath
+
+
+def audio_files(directory):
+    for filename in os.listdir(directory):
+        filepath = os.path.join(directory, filename)
+        if os.path.isfile(filepath) and filename.lower().endswith(
+            (".mp3", ".wav", ".flac", ".ogg", ".aac")
+        ):
+            yield filepath
