@@ -41,3 +41,7 @@ def compare_images_by_size_difference(image1, image2):
     return abs(image1.shape[0] - image2.shape[0]) * abs(
         image1.shape[1] - image2.shape[1]
     )
+
+
+def compare_images_by_aspect_ratio(image1, image2):
+    return abs(image1.shape[1] / image1.shape[0] - image2.shape[1] / image2.shape[0])
