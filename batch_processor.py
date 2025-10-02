@@ -30,3 +30,12 @@ def audio_files(directory):
             (".mp3", ".wav", ".flac", ".ogg", ".aac")
         ):
             yield filepath
+
+
+def document_files(directory):
+    for filename in os.listdir(directory):
+        filepath = os.path.join(directory, filename)
+        if os.path.isfile(filepath) and filename.lower().endswith(
+            (".pdf", ".docx", ".doc", ".txt", ".rtf", ".odt")
+        ):
+            yield filepath
