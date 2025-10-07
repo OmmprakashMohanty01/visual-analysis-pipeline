@@ -64,3 +64,24 @@ def compare_images_by_color_dominance(image1, image2):
     dominance2 = max(h2, s2, v2)
 
     return abs(dominance1 - dominance2)
+
+
+def compare_images_by_texture(image1, image2):
+    gray1 = cv2.cvtColor(image1, cv2.COLOR_BGR2GRAY)
+    gray2 = cv2.cvtColor(image2, cv2.COLOR_BGR2GRAY)
+
+    texture_diff = np.mean(np.abs(cv2.blur(gray1, (5, 5)) - cv2.blur(gray2, (5, 5))))
+
+    return texture_diff
+
+
+def compare_images_by_edge_detection(image1, image2):
+    gray1 = cv2.cvtColor(image1, cv2.COLOR_BGR2GRAY)
+    gray2 = cv2.cvtColor(image2, cv2.COLOR_BGR2GRAY)
+
+    edge1 = cv2.Canny(gray1, 100, 200)
+    edge2 = cv2.Canny(gray2, 100, 200)
+
+    edge_diff = np.mean(np.abs(edge1 - edge2))
+
+    return edge_diff
