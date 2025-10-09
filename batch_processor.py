@@ -39,3 +39,12 @@ def document_files(directory):
             (".pdf", ".docx", ".doc", ".txt", ".rtf", ".odt")
         ):
             yield filepath
+
+
+def zip_files(directory):
+    for filename in os.listdir(directory):
+        filepath = os.path.join(directory, filename)
+        if os.path.isfile(filepath) and filename.lower().endswith(
+            (".zip", ".rar", ".7z", ".tar", ".gz", ".bz2")
+        ):
+            yield filepath
