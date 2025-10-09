@@ -85,3 +85,22 @@ def compare_images_by_edge_detection(image1, image2):
     edge_diff = np.mean(np.abs(edge1 - edge2))
 
     return edge_diff
+
+
+def compare_images_by_entropy(image1, image2):
+    hist1 = cv2.calcHist([image1], [0], None, [256], [0, 256])
+    hist2 = cv2.calcHist([image2], [0], None, [256], [0, 256])
+
+    entropy1 = 0
+    for i in range(len(hist1)):
+        p1 = hist1[i] / (image1.shape[0] * image1.shape[1])
+        if p1 > 0:
+            entropy1 -= p1 * np.log2(p1)
+
+    entropy2 = 0
+    for i in range(len(hist2)):
+        p2 = hist2[i] / (image2.shape[0] * image2.shape[1])
+        if p2 > 0:
+            entropy2 -= p2 * np.log2(p2)
+
+    return abs(entropy1 - entropy2)
