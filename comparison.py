@@ -104,3 +104,17 @@ def compare_images_by_entropy(image1, image2):
             entropy2 -= p2 * np.log2(p2)
 
     return abs(entropy1 - entropy2)
+
+
+def compare_images_by_morphology(image1, image2):
+    erosion1 = cv2.erode(image1, cv2.getStructElement(cv2.MORPH_ELLIPSE, (3, 3)))
+    dilation1 = cv2.dilate(image1, cv2.getStructElement(cv2.MORPH_ELLIPSE, (3, 3)))
+    erosion2 = cv2.erode(image2, cv2.getStructElement(cv2.MORPH_ELLIPSE, (3, 3)))
+    dilation2 = cv2.dilate(image2, cv2.getStructElement(cv2.MORPH_ELLIPSE, (3, 3)))
+
+    morph_diff1 = np.sum(np.abs(image1 - erosion1)) + np.sum(np.abs(image1 - dilation1))
+    morph_diff2 = np.sum(np.abs(image2 - erosion2)) + np.sum(np.abs(image2 - dilation2))
+
+    return morph_diff1 / (image1.shape[0] * image1.shape[1]) + morph_diff2 / (
+        image2.shape[0] * image2.shape[1]
+    )
