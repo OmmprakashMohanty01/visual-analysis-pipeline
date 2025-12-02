@@ -71,3 +71,29 @@ def process_image_batch(
         processed_batch.append(processed_image)
 
     return np.stack(processed_batch)
+
+
+def process_image_array_with_mask(
+    image_array, size=None, crop=False, normalize=False, mask=None
+):
+    if not isinstance(mask, (np.ndarray, type(None))):
+        raise ValueError("Mask must be a numpy array or None.")
+
+    processed_image = process_image_array(image_array, size, crop, normalize=normalize)
+
+    if mask is not None:
+        alpha_channel = cv2.split(mask)[0]
+        processed_image = cv2.addWeighted(processed_image, 0.6, alpha_channel, 0.4, 0)
+
+    return processed_image
+
+
+def save_images_in_dir(
+    images, output_dir=".", prefix="", extension=".jpg", overwrite=False
+):
+    for i, image in enumerate(images):
+        filename = f"{prefix}{i}{extension}"
+        filepath = os.path.join(output_dir, filename)
+        if os.path.exists(filepath) and not overwrite:
+            raise FileExistsError(f"File '{filepath}' already exists.")
+        cv2.imwrite(filepath, image)
