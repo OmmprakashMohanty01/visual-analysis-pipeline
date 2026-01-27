@@ -127,3 +127,10 @@ def compare_images_by_edge_intensity(image1, image2):
         image1.shape[0] * image1.shape[1]
     ) + np.sum(np.abs(edges2 - edges1)) / (image2.shape[0] * image2.shape[1])
     return edge_diff
+
+
+def compare_images_by_color_histogram(image1, image2):
+    hist1 = cv2.calcHist([image1], [0], None, [256], [0, 256])
+    hist2 = cv2.calcHist([image2], [0], None, [256], [0, 256])
+    color_diff = np.sum(np.abs(hist1 - hist2)) / max(np.sum(hist1), np.sum(hist2))
+    return color_diff
