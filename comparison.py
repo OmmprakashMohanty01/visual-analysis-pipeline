@@ -134,3 +134,14 @@ def compare_images_by_color_histogram(image1, image2):
     hist2 = cv2.calcHist([image2], [0], None, [256], [0, 256])
     color_diff = np.sum(np.abs(hist1 - hist2)) / max(np.sum(hist1), np.sum(hist2))
     return color_diff
+
+
+def compare_images_by_textural_feature(image1, image2):
+    gray1 = cv2.cvtColor(image1, cv2.COLOR_BGR2GRAY)
+    gray2 = cv2.cvtColor(image2, cv2.COLOR_BGR2GRAY)
+    feature1 = cv2.describeImage(gray1)
+    feature2 = cv2.describeImage(gray2)
+    textural_diff = np.sum(np.abs(feature1 - feature2)) / (
+        feature1.shape[0] * feature1.shape[1]
+    )
+    return textural_diff
