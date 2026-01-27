@@ -118,3 +118,12 @@ def compare_images_by_morphology(image1, image2):
     return morph_diff1 / (image1.shape[0] * image1.shape[1]) + morph_diff2 / (
         image2.shape[0] * image2.shape[1]
     )
+
+
+def compare_images_by_edge_intensity(image1, image2):
+    edges1 = cv2.Canny(image1, 50, 150)
+    edges2 = cv2.Canny(image2, 50, 150)
+    edge_diff = np.sum(np.abs(edges1 - edges2)) / (
+        image1.shape[0] * image1.shape[1]
+    ) + np.sum(np.abs(edges2 - edges1)) / (image2.shape[0] * image2.shape[1])
+    return edge_diff
