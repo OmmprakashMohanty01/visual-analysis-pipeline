@@ -145,3 +145,24 @@ def compare_images_by_textural_feature(image1, image2):
         feature1.shape[0] * feature1.shape[1]
     )
     return textural_diff
+
+
+def compare_images_by_binary_similarity(image1, image2):
+    threshold = 100
+    similarity1 = (
+        np.count_nonzero(np.bitwise_and(image1, image2))
+        / (image1.shape[0] * image1.shape[1])
+        if image1.shape == image2.shape
+        else 0
+    )
+    similarity2 = (
+        np.count_nonzero(np.bitwise_and(image2, image1))
+        / (image2.shape[0] * image2.shape[1])
+        if image2.shape == image1.shape
+        else 0
+    )
+    return (
+        max(similarity1, similarity2)
+        if max(similarity1, similarity2) > threshold
+        else 0
+    )
