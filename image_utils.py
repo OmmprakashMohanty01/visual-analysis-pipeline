@@ -112,3 +112,7 @@ def generate_image_grid(images, rows, cols, save_path="grid.jpg", extension=".jp
         y = i // cols
         grid_image[y * 128 : y * 128 + 128, x * 128 : x * 128 + 128] = images[i]
     cv2.imwrite("grid.jpg", grid_image)
+
+
+def resize_images(images, new_size):
+    return [cv2.resize(image, new_size) for image in images]
