@@ -97,3 +97,18 @@ def save_images_in_dir(
         if os.path.exists(filepath) and not overwrite:
             raise FileExistsError(f"File '{filepath}' already exists.")
         cv2.imwrite(filepath, image)
+
+
+def generate_image_grid(images, rows, cols, save_path="grid.jpg", extension=".jpg"):
+    for i in range(rows * cols):
+        filename = f"input_{i}{extension}"
+        cv2.imwrite(os.path.join(save_path, filename), images[i])
+
+    grid_image = process_image_array_with_mask(
+        np.zeros((rows * 128, cols * 128, 3)), size=((rows * 128, cols * 128))
+    )
+    for i in range(rows * cols):
+        x = i % cols
+        y = i // cols
+        grid_image[y * 128 : y * 128 + 128, x * 128 : x * 128 + 128] = images[i]
+    cv2.imwrite("grid.jpg", grid_image)
