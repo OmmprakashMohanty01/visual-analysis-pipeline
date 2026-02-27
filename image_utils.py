@@ -120,3 +120,15 @@ def resize_images(images, new_size):
 
 def blur_images(images, kernel_size):
     return [cv2.GaussianBlur(image, (kernel_size, kernel_size), 0) for image in images]
+
+
+def compress_images(image_paths, quality):
+    compressed_images = []
+    for image_path in image_paths:
+        image = cv2.imread(image_path)
+        _, compressed_image = cv2.imencode(
+            ".jpg", image, [int(cv2.IMWRITE_JPEG_QUALITY), quality]
+        )
+        compressed_image = cv2.imdecode(compressed_image, cv2.IMREAD_UNCHANGED)
+        compressed_images.append(compressed_image)
+    return compressed_images
