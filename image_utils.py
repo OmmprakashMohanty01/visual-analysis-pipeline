@@ -116,3 +116,7 @@ def generate_image_grid(images, rows, cols, save_path="grid.jpg", extension=".jp
 
 def resize_images(images, new_size):
     return [cv2.resize(image, new_size) for image in images]
+
+
+def blur_images(images, kernel_size):
+    return [cv2.GaussianBlur(image, (kernel_size, kernel_size), 0) for image in images]
