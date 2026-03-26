@@ -88,3 +88,6 @@ def unknown_files(directory):
             ]
         ]:
             yield filepath
+
+
+["video/ogv", "video/tsx", "video/dv", "video/ts", "video/wtv", "video/tsv", "text/csv"]
