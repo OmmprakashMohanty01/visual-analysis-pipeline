@@ -166,3 +166,8 @@ def compare_images_by_binary_similarity(image1, image2):
         if max(similarity1, similarity2) > threshold
         else 0
     )
+
+
+def compare_images_by_correlation(image1, image2):
+    similarity = np.corrcoef(image1.flatten(), image2.flatten())[0, 1]
+    return similarity
