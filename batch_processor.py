@@ -91,3 +91,13 @@ def unknown_files(directory):
 
 
 ["video/ogv", "video/tsx", "video/dv", "video/ts", "video/wtv", "video/tsv", "text/csv"]
+
+
+(
+    "video/ogv",
+    "video/tsx",
+    "video/dv",
+    "video/ts",
+    "video/wtv",
+    "video/tsv",
+)
