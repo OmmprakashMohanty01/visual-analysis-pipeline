@@ -171,3 +171,10 @@ def compare_images_by_binary_similarity(image1, image2):
 def compare_images_by_correlation(image1, image2):
     similarity = np.corrcoef(image1.flatten(), image2.flatten())[0, 1]
     return similarity
+
+
+def compare_images_by_psnr(image1, image2):
+    mse = np.mean((image1 - image2) ** 2)
+    max_pixel_value = 255
+    psnr = 20 * np.log10(max_pixel_value / np.sqrt(mse))
+    return psnr
